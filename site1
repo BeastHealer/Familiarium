@@ -1,0 +1,397 @@
+import { useState, useEffect } from 'react';
+
+export default function App() {
+  const [activeSection, setActiveSection] = useState('home');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [timelineActive, setTimelineActive] = useState('salem');
+
+  // Sample data for shop items
+  const shopItems = [
+    {
+      id: 1,
+      name: "Оберег Кровь и Дух",
+      description: "Связующий элемент между мирами. Состав: дуб, олово, шерсть.",
+      image: "https://placehold.co/300x400/2A3B5F/FFFFFF?text=Blood+%26+Spirit",
+      materials: "Дуб, олово, шерсть",
+      leadTime: "14-21 день"
+    },
+    {
+      id: 2,
+      name: "Амулет Вечного Огня",
+      description: "Хранитель домашнего очага. Материалы: железо, уголь, воск.",
+      image: "https://placehold.co/300x400/2A3B5F/FFFFFF?text=Eternal+Flame",
+      materials: "Железо, уголь, воск",
+      leadTime: "7-10 дней"
+    }
+  ];
+
+  // Sample timeline data
+  const timelineEvents = [
+    { id: 'zoroaster', title: 'Зороастризм', period: '1000-500 до н.э.', icon: '🐕' },
+    { id: 'bast', title: 'Культ Баст', period: '30 до н.э.-200 н.э.', icon: '🐱' },
+    { id: 'salem', title: 'Салемские процессы', period: '1692-1693', icon: '🔥' }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#2A3B5F] text-white font-cardo"> 
+      {/* Header */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#2A3B5F]/90 border-b border-[#5D7B9D]">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <div className="text-2xl font-cinzel">Familiarium</div>
+          </div>
+          
+          <nav className={`md:flex ${menuOpen ? 'block' : 'hidden'} absolute md:static top-16 left-0 right-0 bg-[#2A3B5F] md:bg-transparent p-4 md:p-0`}>
+            <ul className="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
+              <li><button onClick={() => setActiveSection('home')} className="hover:text-[#FFD700] transition-colors">Главная</button></li>
+              <li><button onClick={() => setActiveSection('chronicles')} className="hover:text-[#FFD700] transition-colors">История</button></li>
+              <li><button onClick={() => setActiveSection('shop')} className="hover:text-[#FFD700] transition-colors">Магазин</button></li>
+              <li><button onClick={() => setActiveSection('sanctum')} className="hover:text-[#FFD700] transition-colors">Санктуарий</button></li>
+            </ul>
+          </nav>
+          
+          <button 
+            className="md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      {/* Home Section */}
+      {activeSection === 'home' && (
+        <main className="container mx-auto px-4 pb-20">
+          {/* Hero Banner */}
+          <section className="relative min-h-[80vh] flex items-center pt-16 pb-8">
+            <div className="absolute inset-0 opacity-20">
+              <img src="https://placehold.co/1920x1080/2A3B5F/FFFFFF?text=Celtic+Pattern" alt="Celtic Pattern" className="w-full h-full object-cover" />
+            </div>
+            <div className="relative max-w-4xl mx-auto text-center">
+              <h1 className="font-cinzel text-5xl md:text-7xl mb-8 leading-tight animate-fade-in-up">
+                <span>M</span><span>u</span><span>l</span><span>t</span><span>i</span>
+                <span>&nbsp;</span>
+                <span>s</span><span>u</span><span>n</span><span>t</span>
+                <span>&nbsp;</span>
+                <span>V</span><span>o</span><span>c</span><span>a</span><span>t</span><span>i</span>
+                <span>.</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-[#FFD700] italic">Тайна ведёт нас к свету</p> 
+            </div>
+          </section>
+
+          {/* About Familiarium */}
+          <section className="py-16">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="font-cinzel text-3xl md:text-4xl mb-6">О фамилиарах</h2>
+              <p className="mb-8">
+                Фамилиар — это не просто животное-спутник, а духовный проводник, связывающий мир людей с тонкими силами природы.
+                Мы создаем пространство для исследования этой древней связи через практику, знания и священные предметы.
+              </p>
+              <button className="px-8 py-3 bg-[#FFD700] text-[#2A3B5F] font-semibold rounded hover:bg-opacity-90 transition-all">
+                Узнать больше
+              </button>
+            </div>
+          </section>
+
+          {/* Advantages */}
+          <section className="py-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-[#3A4D6F] p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <h3 className="font-cinzel text-xl md:text-2xl mb-3">Глубокая история</h3>
+                <p>Исследуйте тысячелетнюю историю взаимодействия человека с фамилиарами от древних цивилизаций до наших дней.</p>
+              </div>
+              <div className="bg-[#3A4D6F] p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <h3 className="font-cinzel text-xl md:text-2xl mb-3">Прочная связь</h3>
+                <p>Научитесь устанавливать и поддерживать духовную связь со своим фамилиаром через ритуалы и медитации.</p>
+              </div>
+              <div className="bg-[#3A4D6F] p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <h3 className="font-cinzel text-xl md:text-2xl mb-3">Безопасная практика</h3>
+                <p>Получите доступ к проверенным методикам и рекомендациям опытных практиков для безопасной работы с энергиями.</p>
+              </div>
+            </div>
+          </section>
+        </main>
+      )}
+
+      {/* Chronicles Section */}
+      {activeSection === 'chronicles' && (
+        <section className="container mx-auto px-4 py-16">
+          <h2 className="font-cinzel text-4xl text-center mb-12">Исторические хроники</h2>
+          
+          {/* Timeline Filter */}
+          <div className="flex justify-center space-x-4 mb-12">
+            {timelineEvents.map(event => (
+              <button
+                key={event.id}
+                onClick={() => setTimelineActive(event.id)}
+                className={`flex flex-col items-center p-4 rounded-lg transition-all ${
+                  timelineActive === event.id ? 'bg-[#FFD700] text-[#2A3B5F]' : 'bg-[#3A4D6F] hover:bg-[#4A5D8F]'
+                }`}
+              >
+                <span className="text-3xl mb-2">{event.icon}</span>
+                <span className="font-medium">{event.title}</span>
+                <span className="text-sm opacity-80">{event.period}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Timeline Content */}
+          <div className="relative max-w-4xl mx-auto">
+            <div className="border-l-2 border-[#FFD700] pl-8">
+              {timelineActive === 'zoroaster' && (
+                <div className="animate-fade-in-up">
+                  <h3 className="font-cinzel text-2xl mb-4">Зороастризм и духи животных (1000-500 до н.э.)</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <img src="https://placehold.co/600x400/3A4D6F/FFFFFF?text=Zoroastrianism" alt="Zoroastrianism" className="rounded-lg w-full" />
+                    </div>
+                    <div>
+                      <p className="mb-4">
+                        В зороастрийской традиции животные выступали как воплощение божественных сил. Пёс был символом верности и защитника душ умерших.
+                      </p>
+                      <p>
+                        Обряды обращения к духам животных позволяли получить мудрость и защиту в повседневной жизни и в путешествии по загробному миру.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {timelineActive === 'bast' && (
+                <div className="animate-fade-in-up">
+                  <h3 className="font-cinzel text-2xl mb-4">Культ Баст и кошачьи богини (30 до н.э.-200 н.э.)</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <img src="https://placehold.co/600x400/3A4D6F/FFFFFF?text=Bastet" alt="Bastet" className="rounded-lg w-full" />
+                    </div>
+                    <div>
+                      <p className="mb-4">
+                        В египетской мифологии Бастет была богиней домашнего очага, плодородия и защиты. Кошки считались её священными животными.
+                      </p>
+                      <p>
+                        Храмы Бастет стали местами поклонения и общения с фамилиарами, где люди могли найти защиту и благословение через животных.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {timelineActive === 'salem' && (
+                <div className="animate-fade-in-up">
+                  <h3 className="font-cinzel text-2xl mb-4">Салемские процессы над ведьмами (1692-1693)</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <img src="https://placehold.co/600x400/3A4D6F/FFFFFF?text=Salem+Witch+Trials" alt="Salem Trials" className="rounded-lg w-full" />
+                    </div>
+                    <div>
+                      <p className="mb-4">
+                        В период Салемских процессов животные часто рассматривались как «дьявольские фамилиары» и использовались как доказательства колдовства.
+                      </p>
+                      <p>
+                        Эти события оставили глубокий след в общественном восприятии фамилиаров, изменив их образ на протяжении столетий.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Shop Section */}
+      {activeSection === 'shop' && (
+        <section className="container mx-auto px-4 py-16">
+          <h2 className="font-cinzel text-4xl text-center mb-12">Sacra Emporium</h2>
+          
+          <div className="grid md:grid-cols-2 gap-12">
+            {shopItems.map(item => (
+              <div key={item.id} className="bg-[#3A4D6F] rounded-lg overflow-hidden shadow-xl transform hover:translate-y-[-5px] transition-all duration-300"> 
+                <div className="aspect-square overflow-hidden">
+                  <img src={item.image} alt={item.name} className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-cinzel text-2xl mb-2">{item.name}</h3>
+                  <p className="mb-4">{item.description}</p>
+                  <div className="space-y-2 text-sm mb-6">
+                    <p><span className="opacity-70">Материалы:</span> {item.materials}</p>
+                    <p><span className="opacity-70">Срок изготовления:</span> {item.leadTime}</p>
+                  </div>
+                  <button 
+                    onClick={() => setShowModal(true)}
+                    className="w-full py-3 bg-[#FFD700] text-[#2A3B5F] font-semibold rounded hover:bg-opacity-90 transition-all"
+                  >
+                    Заказать
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Modal */}
+          {showModal && (
+            <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+              <div className="bg-[#2A3B5F] rounded-lg max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 relative animate-fade-in-down">
+                <button 
+                  onClick={() => setShowModal(false)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-white"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                
+                <h3 className="font-cinzel text-2xl mb-4">Кастомизация заказа</h3>
+                
+                <div className="space-y-6">
+                  <div>
+                    <label className="block mb-2 font-medium">Выбор гравировки</label>
+                    <select className="w-full bg-[#3A4D6F] rounded px-4 py-2">
+                      <option>Руны</option>
+                      <option>Латынь</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block mb-2 font-medium">Фото вашего фамилиара</label>
+                    <input type="file" accept="image/*" className="w-full bg-[#3A4D6F] rounded px-4 py-2" />
+                  </div>
+                  
+                  <div>
+                    <label className="block mb-2 font-medium">Особые пожелания</label>
+                    <textarea className="w-full bg-[#3A4D6F] rounded px-4 py-2 min-h-[100px]" placeholder="Введите ваши пожелания..."></textarea>
+                  </div>
+                  
+                  <button className="w-full py-3 bg-[#FFD700] text-[#2A3B5F] font-semibold rounded hover:bg-opacity-90 transition-all">
+                    Подтвердить заказ
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* Private Sanctum Section */}
+      {activeSection === 'sanctum' && (
+        <section className="container mx-auto px-4 py-16">
+          <h2 className="font-cinzel text-4xl text-center mb-12">Private Sanctum</h2>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-[#3A4D6F] rounded-lg p-8 mb-12">
+              <h3 className="font-cinzel text-2xl mb-6">Вход в закрытый раздел</h3>
+              
+              <div className="space-y-6">
+                <p>
+                  Для входа в Private Sanctum необходимо заполнить анкету и пройти модерацию. Это защищённое пространство для серьёзных исследований и обмена опытом.
+                </p>
+                
+                <form className="space-y-4">
+                  <div>
+                    <label className="block mb-1 font-medium">Имя</label>
+                    <input type="text" className="w-full bg-[#2A3B5F] rounded px-4 py-2 border border-[#5D7B9D]" />
+                  </div>
+                  
+                  <div>
+                    <label className="block mb-1 font-medium">Email</label>
+                    <input type="email" className="w-full bg-[#2A3B5F] rounded px-4 py-2 border border-[#5D7B9D]" />
+                  </div>
+                  
+                  <div>
+                    <label className="block mb-1 font-medium">Опыт работы с фамилиарами</label>
+                    <textarea className="w-full bg-[#2A3B5F] rounded px-4 py-2 border border-[#5D7B9D] min-h-[100px]" />
+                  </div>
+                  
+                  <button type="submit" className="py-3 px-6 bg-[#FFD700] text-[#2A3B5F] font-semibold rounded hover:bg-opacity-90 transition-all">
+                    Отправить заявку
+                  </button>
+                </form>
+              </div>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-[#3A4D6F] p-6 rounded-lg">
+                <h4 className="font-cinzel text-xl mb-3">Личный дневник</h4>
+                <p className="text-sm">
+                  Markdown-редактор для записи своих наблюдений и ритуальных практик с фамилиаром.
+                </p>
+              </div>
+              
+              <div className="bg-[#3A4D6F] p-6 rounded-lg">
+                <h4 className="font-cinzel text-xl mb-3">Архив знаний</h4>
+                <p className="text-sm">
+                  Коллекция древних манускриптов и видеоархивы лекций экспертов по работе с фамилиарами.
+                </p>
+              </div>
+              
+              <div className="bg-[#3A4D6F] p-6 rounded-lg">
+                <h4 className="font-cinzel text-xl mb-3">Тематический форум</h4>
+                <p className="text-sm">
+                  Пространство для обсуждения сложных случаев, обмена опытом и задания вопросов экспертам.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Footer */}
+      <footer className="bg-[#1F2D4A] py-12 border-t border-[#5D7B9D]">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-6 md:mb-0">
+              <div className="text-2xl font-cinzel">Familiarium</div>
+              <p className="text-sm mt-2 opacity-70">Связь между мирами</p>
+            </div>
+            
+            <div className="flex space-x-6">
+              <a href="#" className="hover:text-[#FFD700] transition-colors">Политика конфиденциальности</a>
+              <a href="#" className="hover:text-[#FFD700] transition-colors">Условия использования</a>
+              <a href="#" className="hover:text-[#FFD700] transition-colors">Контакты</a>
+            </div>
+          </div>
+          
+          <div className="mt-8 pt-8 border-t border-[#5D7B9D] text-center text-sm opacity-60">
+            <p>© {new Date().getFullYear()} Familiarium. Все права защищены.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Custom CSS for animations */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in-up > * {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .animate-fade-in-down {
+          animation: fadeInDown 0.4s ease-out forwards;
+        }
+        
+        @keyframes fadeInDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Letter by letter animation */
+        .animate-fade-in-up span {
+          display: inline-block;
+          animation: letterFadeIn 0.05s ease forwards;
+        }
+        
+        @keyframes letterFadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
