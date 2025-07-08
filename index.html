@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Familiarium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cardo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">Familiarium</div>
+  <nav id="main-nav">
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul>
+      <li><a href="#" onclick="showSection('home')">Главная</a></li>
+      <li><a href="#" onclick="showSection('chronicles')">История</a></li>
+      <li><a href="#" onclick="showSection('shop')">Магазин</a></li>
+      <li><a href="#" onclick="showSection('sanctum')">Санктуарий</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- Home -->
+  <section id="home" class="hero">
+    <h1>
+      <span>M</span><span>u</span><span>l</span><span>t</span><span>i</span>
+      <span>&nbsp;</span>
+      <span>s</span><span>u</span><span>n</span><span>t</span>
+      <span>&nbsp;</span>
+      <span>V</span><span>o</span><span>c</span><span>a</span><span>t</span><span>i</span>
+      <span>.</span>
+    </h1>
+    <p>Тайна ведёт нас к свету</p>
+  </section>
+
+  <section class="about container">
+    <h2>О фамилиарах</h2>
+    <p>Фамилиар — это не просто животное-спутник, а духовный проводник, связывающий мир людей с тонкими силами природы.
+       Мы создаем пространство для исследования этой древней связи через практику, знания и священные предметы.</p>
+    <br/>
+    <button class="btn-order" disabled>Узнать больше</button>
+  </section>
+
+  <section class="advantages container">
+    <h2>Преимущества</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Глубокая история</h3>
+        <p>Исследуйте тысячелетнюю историю взаимодействия человека с фамилиарами от древних цивилизаций до наших дней.</p>
+      </div>
+      <div class="card">
+        <h3>Прочная связь</h3>
+        <p>Научитесь устанавливать и поддерживать духовную связь со своим фамилиаром через ритуалы и медитации.</p>
+      </div>
+      <div class="card">
+        <h3>Безопасная практика</h3>
+        <p>Получите доступ к проверенным методикам и рекомендациям опытных практиков для безопасной работы с энергиями.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chronicles -->
+  <section id="chronicles" class="timeline container">
+    <h2>Исторические хроники</h2>
+    <div class="timeline-buttons">
+      <div class="timeline-button active" data-id="zoroaster">🐕 Зороастризм</div>
+      <div class="timeline-button" data-id="bast">🐱 Культ Баст</div>
+      <div class="timeline-button" data-id="salem">🔥 Салем</div>
+    </div>
+    <div class="timeline-content" id="content">
+      <h3>Зороастризм и духи животных (1000-500 до н.э.)</h3>
+      <p>В зороастрийской традиции животные выступали как воплощение божественных сил. Пёс был символом верности и защитника душ умерших.</p>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section id="shop" class="shop container">
+    <h2>Sacra Emporium</h2>
+    <div class="shop-grid">
+      <div class="product-card">
+        <div class="product-img"><img src=" https://placehold.co/300x400/2A3B5F/FFFFFF?text=Blood+%26+Spirit" alt="Оберег Кровь и Дух"/></div>
+        <div class="product-info">
+          <h3 class="product-title">Оберег Кровь и Дух</h3>
+          <p class="product-desc">Связующий элемент между мирами. Состав: дуб, олово, шерсть.</p>
+          <div class="product-meta">
+            <p>Материалы: Дуб, олово, шерсть</p>
+            <p>Срок изготовления: 14-21 день</p>
+          </div>
+          <button class="btn-order" onclick="openModal()">Заказать</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img"><img src=" https://placehold.co/300x400/2A3B5F/FFFFFF?text=Eternal+Flame" alt="Амулет Вечного Огня"/></div>
+        <div class="product-info">
+          <h3 class="product-title">Амулет Вечного Огня</h3>
+          <p class="product-desc">Хранитель домашнего очага. Материалы: железо, уголь, воск.</p>
+          <div class="product-meta">
+            <p>Материалы: Железо, уголь, воск</p>
+            <p>Срок изготовления: 7-10 дней</p>
+          </div>
+          <button class="btn-order" onclick="openModal()">Заказать</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sanctum -->
+  <section id="sanctum" class="sanctum container">
+    <h2>Private Sanctum</h2>
+    <p>Для входа в Private Sanctum необходимо заполнить анкету и пройти модерацию. Это защищённое пространство для серьёзных исследований и обмена опытом.</p>
+    <form>
+      <label>Имя<br/><input type="text" style="width:100%;padding:0.5rem;margin-bottom:1rem;background:#2A3B5F;color:white;border:1px solid #5D7B9D;"></label><br/>
+      <label>Email<br/><input type="email" style="width:100%;padding:0.5rem;margin-bottom:1rem;background:#2A3B5F;color:white;border:1px solid #5D7B9D;"></label><br/>
+      <label>Опыт работы с фамилиарами<br/>
+        <textarea style="width:100%;min-height:100px;padding:0.5rem;background:#2A3B5F;color:white;border:1px solid #5D7B9D;"></textarea>
+      </label><br/>
+      <button type="submit" class="btn-order">Отправить заявку</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">Familiarium</div>
+  <p>© 2025 Все права защищены</p>
+</footer>
+
+<!-- Modal -->
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <div class="close-btn" onclick="closeModal()">&times;</div>
+    <h3>Кастомизация заказа</h3>
+    <form>
+      <label>Выбор гравировки<br/>
+        <select style="width:100%;padding:0.5rem;margin-bottom:1rem;background:#2A3B5F;color:white;border:1px solid #5D7B9D;">
+          <option>Руны</option>
+          <option>Латынь</option>
+        </select>
+      </label><br/>
+      <label>Фото вашего фамилиара<br/>
+        <input type="file" accept="image/*" style="width:100%;padding:0.5rem;margin-bottom:1rem;background:#2A3B5F;color:white;border:1px solid #5D7B9D;"/>
+      </label><br/>
+      <label>Особые пожелания<br/>
+        <textarea style="width:100%;min-height:100px;padding:0.5rem;background:#2A3B5F;color:white;border:1px solid #5D7B9D;"></textarea>
+      </label><br/>
+      <button type="submit" class="btn-order">Подтвердить заказ</button>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
